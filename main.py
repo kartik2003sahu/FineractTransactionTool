@@ -123,7 +123,7 @@ async def login(request: LoginRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/api/logout")
+@app.api_route("/api/logout", methods=["GET", "POST"])
 async def logout():
     """
     Clear saved credentials (logout)

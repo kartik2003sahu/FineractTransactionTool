@@ -269,8 +269,8 @@ fetch('/api/auth-status')
         console.error('Auth check failed:', error);
     });
 
-// Logout function
-function logout() {
+// Logout function (globally accessible)
+window.logout = function () {
     if (confirm('Are you sure you want to logout? You will need to login again to use the tool.')) {
         fetch('/api/logout', { method: 'POST' })
             .then(res => res.json())
@@ -281,9 +281,10 @@ function logout() {
             })
             .catch(error => {
                 console.error('Logout failed:', error);
+                alert('Logout failed. Please try again.');
             });
     }
-}
+};
 
 // Initialize status on page load
 updateStatus();

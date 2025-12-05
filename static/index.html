@@ -10,9 +10,16 @@
 
 <body>
     <div class="container">
-        <header>
-            <h1>Transaction Management Tool</h1>
-            <p class="subtitle">Undo, correct, and replay financial transactions</p>
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>Transaction Management Tool</h1>
+                <p class="subtitle">Undo, correct, and replay financial transactions</p>
+            </div>
+            <button onclick="logout()"
+                style="padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background 0.3s;"
+                onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">
+                🚪 Logout
+            </button>
         </header>
 
         <!-- Step 1: Undo Transactions -->
@@ -102,6 +109,26 @@
         </section>
     </div>
 
+    <script>
+        // Logout function - inline to ensure it's always available
+        function logout() {
+            if (confirm('Are you sure you want to logout? You will need to login again to use the tool.')) {
+                fetch('/api/logout', { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = '/static/login.html';
+                        } else {
+                            alert('Logout failed: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Logout failed:', error);
+                        alert('Logout failed. Please try again.');
+                    });
+            }
+        }
+    </script>
     <script src="/static/app.js"></script>
 </body>
 
