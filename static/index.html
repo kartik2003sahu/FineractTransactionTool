@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Management Tool</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Transaction Management Tool</h1>
+            <p class="subtitle">Undo, correct, and replay financial transactions</p>
+        </header>
+
+        <!-- Step 1: Undo Transactions -->
+        <section class="card">
+            <h2>Step 1: Undo Transactions</h2>
+            <p class="description">Undo from latest transaction backward down to and including the cutoff date</p>
+
+            <form id="undoForm">
+                <div class="form-group">
+                    <label for="loanId">Loan ID</label>
+                    <input type="number" id="loanId" name="loanId" required placeholder="Enter loan ID (e.g., 19130)">
+                </div>
+
+                <div class="form-group">
+                    <label for="cutoffDate">Cutoff Date (Stop Here)</label>
+                    <input type="date" id="cutoffDate" name="cutoffDate" required>
+                    <small style="color: #94a3b8; display: block; margin-top: 0.5rem;">
+                        Transactions from latest down to this date will be undone
+                    </small>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="undoBtn">
+                    <span class="btn-text">Undo Transactions</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+
+            <div id="undoResult" class="result" style="display: none;"></div>
+        </section>
+
+        <!--Step 2: Export to Excel -->
+        <section class="card">
+            <h2>Step 2: Export to Excel</h2>
+            <p class="description">Download undone transactions as Excel file for correction</p>
+
+            <button class="btn btn-success" id="exportBtn">
+                <span class="btn-text">📥 Export to Excel</span>
+                <span class="loader" style="display: none;"></span>
+            </button>
+
+            <div id="exportResult" class="result" style="display: none;"></div>
+        </section>
+
+        <!-- Step 3: Import Corrected Excel -->
+        <section class="card">
+            <h2>Step 3: Import Corrected Excel</h2>
+            <p class="description">Upload the corrected Excel file with updated transaction details</p>
+
+            <form id="importForm">
+                <div class="form-group">
+                    <label for="excelFile" class="file-label">
+                        <span class="file-icon">📄</span>
+                        <span id="fileName">Choose Excel file...</span>
+                    </label>
+                    <input type="file" id="excelFile" name="excelFile" accept=".xlsx,.xls" required
+                        style="display: none;">
+                </div>
+
+                <button type="submit" class="btn btn-warning" id="importBtn">
+                    <span class="btn-text">📤 Import Excel</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+
+            <div id="importResult" class="result" style="display: none;"></div>
+        </section>
+
+        <!-- Step 4: Replay Transactions -->
+        <section class="card">
+            <h2>Step 4: Make Repayments</h2>
+            <p class="description">Execute corrected transactions in chronological order</p>
+
+            <button class="btn btn-danger" id="replayBtn">
+                <span class="btn-text">💰 Make Repayments</span>
+                <span class="loader" style="display: none;"></span>
+            </button>
+
+            <div id="replayResult" class="result" style="display: none;"></div>
+        </section>
+
+        <!-- Status Display -->
+        <section class="card status-card">
+            <h2>Current Status</h2>
+            <div id="statusDisplay" class="status-display">
+                <p>No transactions loaded</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>
